@@ -24,7 +24,7 @@ class Post(models.Model):
     update = models.DateTimeField(auto_now=True, null=True)
     # content = models.TextField()
     content = RichTextField()
-    slug = models.CharField(max_length=255)
+    slug = models.CharField(max_length=255, unique=True)
     status = models.CharField(choices=STATUS, max_length=150)
 
     def __str__(self):

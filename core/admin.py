@@ -7,6 +7,7 @@ from core.models import Category,Post
 class AdminPost(admin.ModelAdmin):
     model=Post
     list_display=("title","author","category","status","date",'slug')
+    prepopulated_fields = {'slug':("title","author","category")}
     
 
 admin.site.register(Category)
