@@ -9,7 +9,7 @@
       <div class="col-lg-6 px-0">
         <h1 class="display-4 fst-italic">{{i.title|truncatechars:"15"}}</h1>
         <p class="lead my-3">{{i.content|safe|truncatechars:"170"}}</p>
-        <p class="lead mb-0"><a href="#" class="text-body-emphasis fw-bold">Continue reading...</a></p>
+        <p class="lead mb-0"><a href="{% url 'post_view' i.slug %}" class="text-body-emphasis fw-bold">Continue reading...</a></p>
       </div>
     </div>
     {% endfor %}  
@@ -23,7 +23,7 @@
             <h3 class="mb-0">{{u.title|truncatechars:"16"}}</h3>
             <div class="mb-1 text-body-secondary">{{u.date|date:"M d, Y"}}</div>
             <p class="card-text mb-auto">{{u.content|safe|truncatechars:"110"}}</p>
-            <a href="#" class="icon-link gap-1 icon-link-hover stretched-link">
+            <a href="{% url 'post_view' u.slug %}" class="icon-link gap-1 icon-link-hover stretched-link">
               Continue reading
               <svg class="bi"><use xlink:href="#chevron-right"/></svg>
             </a>

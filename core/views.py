@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from core.models import Category, Post
 # Create your views here.
 
@@ -19,3 +19,11 @@ def category(request):
         'category':category,
     }
     return render(request, 'category.html',context)
+
+
+def view_post(request, slug):
+    post = get_object_or_404(Post, slug=slug)
+    context = {
+        "post":post
+    }
+    return render(request, "single.html",context)
