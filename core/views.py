@@ -27,3 +27,13 @@ def view_post(request, slug):
         "post":post
     }
     return render(request, "single.html",context)
+
+def cat_post(request, id):
+    category = Category.objects.get(id=id)
+    posts = Post.objects.filter(category=category)
+
+    context = {
+        'category':category,
+        'posts':posts
+    }
+    return render(request, 'cat_post.html', context)
