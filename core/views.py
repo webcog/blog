@@ -28,8 +28,8 @@ def view_post(request, slug):
     }
     return render(request, "single.html",context)
 
-def cat_post(request, id):
-    category = Category.objects.get(id=id)
+def cat_post(request, slug):
+    category = Category.objects.get(slug=slug)
     posts = Post.objects.filter(category=category)
 
     context = {
@@ -37,3 +37,7 @@ def cat_post(request, id):
         'posts':posts
     }
     return render(request, 'cat_post.html', context)
+
+
+def login(request):
+    return render(request, 'login.html')

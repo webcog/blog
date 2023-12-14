@@ -8,7 +8,10 @@ class AdminPost(admin.ModelAdmin):
     model=Post
     list_display=("title","author","category","status","date",'slug')
     prepopulated_fields = {'slug':("title","author","category")}
-    
 
-admin.site.register(Category)
+class AdminCategory(admin.ModelAdmin):
+    list_display=('name',"slug","date")  
+    prepopulated_fields = {'slug':("name",)}
+    
+admin.site.register(Category, AdminCategory)
 admin.site.register(Post, AdminPost)

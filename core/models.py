@@ -6,6 +6,7 @@ from ckeditor.fields import RichTextField
 class Category(models.Model):
     name = models.CharField(max_length=255)
     date = models.DateTimeField(auto_now_add=True)
+    slug = models.CharField(max_length=50, unique=True, blank=True, null=True)
 
     def __str__(self):
         return self.name
