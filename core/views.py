@@ -1,6 +1,9 @@
 from django.shortcuts import render, get_object_or_404, HttpResponse, redirect
 from core.models import Category, Post
 from django.contrib.auth.models import User
+from django.contrib.auth import login,authenticate, logout
+from django.contrib import messages
+
 
 # Create your views here.
 
@@ -41,7 +44,19 @@ def cat_post(request, slug):
     return render(request, 'cat_post.html', context)
 
 
-def login(request):
+def loginPage(request):
+    if request.method == 'POST':
+        username = request.POST.get("username")
+        pass1 = request.POST.get("pass")
+        user = authenticate(request, username=username,password=pass1)
+
+        if user is not None:
+            login(request,user)
+            return redirect('index')
+            
+        else:
+            messages.error(request, "Wrong Credentials Insert")
+        
     return render(request, 'login.html')
 
 def signup(request):
@@ -50,10 +65,17 @@ def signup(request):
         email = request.POST.get("email")
         pass1 = request.POST.get("password1")
         pass2 = request.POST.get("password2")
-
+        
+        a = "12345678"
+        
         if pass1 != pass2:
-            return HttpResponse("Your Password and Confirm Password are not Similar")
+            messages.error(request, "Password did Not Match!")
+        
+        
 
+        elif len(pass1)  <= len(a) and len(pass2)  <= len(a):
+            messages.error(request, "Your Password length is smaller than 8")
+    
         else:
             my_user = User.objects.create_user(uname,email,pass1)
             my_user.save()
@@ -61,3 +83,8 @@ def signup(request):
     
 
     return render(request, 'signup.html')
+
+
+def LogoutPage(request):
+    logout(request)
+    return redirect('login')
