@@ -3,7 +3,7 @@ from core.models import Category, Post
 from django.contrib.auth.models import User
 from django.contrib.auth import login,authenticate, logout
 from django.contrib import messages
-
+from django.db import IntegrityError
 
 # Create your views here.
 
@@ -77,11 +77,12 @@ def signup(request):
             messages.error(request, "Your Password length is smaller than 8")
     
         else:
-            my_user = User.objects.create_user(uname,email,pass1)
-            my_user.save()
-            return redirect('login')
-    
-
+            try:
+                my_user = User.objects.create_user(uname,email,pass1)
+                my_user.save()
+                return redirect('login')
+            except IntegrityError:
+                messages.error(request,"Your Username Already Exist")
     return render(request, 'signup.html')
 
 

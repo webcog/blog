@@ -182,8 +182,37 @@
       </div>
       {% else %}
       <div class="col-4 pt-1">
-        <a class="link-secondary" href="{% url 'logout' %}">Logout</a>
+        {% comment %} <a class="link-secondary" href="{% url 'logout' %}">Logout</a> {% endcomment %}
+      
+      <!-- Button trigger modal -->
+<a type="button" class="link-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Logout
+</a>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Logout</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+      <div class="modal-body">
+        Are You Sure want to Logout <span class="fw-bold">{{request.user.username}}</span>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+        <a href="{% url 'logout' %}" class="btn btn-primary">Yes</a>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+
+
+
       {% endif %}
 
       
