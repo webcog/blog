@@ -4,12 +4,12 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login,authenticate, logout
 from django.contrib import messages
 from django.db import IntegrityError
-
+# from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def index(request):
     category = Category.objects.all().order_by("-id")
-    post = Post.objects.all().order_by("-id")
+    post = Post.objects.filter(status='Publish').order_by("-id")
 
     context = {
         'category':category,
@@ -25,7 +25,7 @@ def category(request):
     }
     return render(request, 'category.html',context)
 
-
+# @login_required(login_url='login')
 def view_post(request, slug):
     post = get_object_or_404(Post, slug=slug)
     context = {
@@ -35,7 +35,7 @@ def view_post(request, slug):
 
 def cat_post(request, slug):
     category = Category.objects.get(slug=slug)
-    posts = Post.objects.filter(category=category)
+    posts = Post.objects.filter(category=category,status='Publish')
 
     context = {
         'category':category,
@@ -78,9 +78,12 @@ def signup(request):
     
         else:
             try:
-                my_user = User.objects.create_user(uname,email,pass1)
-                my_user.save()
-                return redirect('login')
+                if User.objects.filter(email=email).exists():
+                    messages.error(request,"Your Email Already Exist")
+                else:
+                    my_user = User.objects.create_user(uname,email,pass1)
+                    my_user.save()
+                    return redirect('login')
             except IntegrityError:
                 messages.error(request,"Your Username Already Exist")
     return render(request, 'signup.html')
