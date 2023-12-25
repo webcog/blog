@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'core',
     'ckeditor',
     'ckeditor_uploader',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
