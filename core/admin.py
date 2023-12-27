@@ -1,5 +1,5 @@
 from django.contrib import admin
-from core.models import Category,Post
+from core.models import Category,Post,Profile
 
 
 # Register your models here.
@@ -15,3 +15,5 @@ class AdminCategory(admin.ModelAdmin):
     
 admin.site.register(Category, AdminCategory)
 admin.site.register(Post, AdminPost)
+
+admin.site.register(Profile)

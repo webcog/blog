@@ -1,6 +1,6 @@
 from django.db import models
 from ckeditor.fields import RichTextField
-
+from django.contrib.auth.models import User
 # Create your models here.
 
 class Category(models.Model):
@@ -19,7 +19,7 @@ class Post(models.Model):
 
     featured_img = models.ImageField(upload_to='post/')
     title = models.CharField(max_length=255)
-    author = models.CharField(max_length=30)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
     update = models.DateTimeField(auto_now=True, null=True)
@@ -30,3 +30,20 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    bio = models.TextField(blank=True)
+    location = models.CharField(max_length=255,blank=True)
+    birth_date = models.DateField(blank=True, null=True)
+    website = models.URLField(max_length=200,blank=True)
+    facebook = models.URLField(max_length=200,blank=True)
+    instagram = models.URLField(max_length=200,blank=True)
+    linkedin = models.URLField(max_length=200,blank=True)
+    github = models.URLField(max_length=200,blank=True)
+    youtube = models.URLField(max_length=200,blank=True)
+    profile_image = models.ImageField(upload_to="profile/", blank=True,null=True,default="profile/default.png")
+
+    def __str__(self):
+        return str(self.user)
