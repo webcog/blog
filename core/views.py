@@ -92,3 +92,11 @@ def signup(request):
 def LogoutPage(request):
     logout(request)
     return redirect('login')
+
+
+def profile(request):
+    return render(request, 'user/profile.html')
+
+
+def profileupdate(request):
+    return render(request, 'user/profileupdate.html')
