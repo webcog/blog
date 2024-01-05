@@ -1,6 +1,8 @@
 from django.db import models
 from ckeditor.fields import RichTextField
 from django.contrib.auth.models import User
+
+# first last t email username password 
 # Create your models here.
 
 class Category(models.Model):
@@ -35,6 +37,7 @@ class Post(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(blank=True)
+    mobile = models.CharField(max_length=13, blank=True, null=True)
     location = models.CharField(max_length=255,blank=True)
     birth_date = models.DateField(blank=True, null=True)
     website = models.URLField(max_length=200,blank=True)

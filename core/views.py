@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404, HttpResponse, redirect
-from core.models import Category, Post
+from core.models import Category, Post, Profile
 from django.contrib.auth.models import User
 from django.contrib.auth import login,authenticate, logout
 from django.contrib import messages
 from django.db import IntegrityError
+from django.contrib.auth.decorators import login_required
 # from django.contrib.auth.decorators import login_required
 # Create your views here.
 
@@ -94,8 +95,22 @@ def LogoutPage(request):
     return redirect('login')
 
 
-def profile(request):
-    return render(request, 'user/profile.html')
+# @login_required(login_url='login')
+# def profile(request):
+#     user_profile = Profile.objects.get(user=request.user)
+#     context = {
+#         'user_profile':user_profile
+#     }
+#     return render(request, 'user/profile.html',context)
+
+
+def profile(request,username):
+    user = get_object_or_404(User, username=username)
+    user_profile=get_object_or_404(Profile,user=user)
+    context = {
+        'user_profile':user_profile
+    }
+    return render(request, 'user/profile.html', context)
 
 
 def profileupdate(request):
