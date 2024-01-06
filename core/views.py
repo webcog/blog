@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 # from django.contrib.auth.decorators import login_required
 # Create your views here.
 
+
 def index(request):
     category = Category.objects.all().order_by("-id")
     post = Post.objects.filter(status='Publish').order_by("-id")
@@ -113,5 +114,15 @@ def profile(request,username):
     return render(request, 'user/profile.html', context)
 
 
-def profileupdate(request):
-    return render(request, 'user/profileupdate.html')
+def profileupdate(request, username):
+    user = get_object_or_404(User, username=username)
+    user_profile=get_object_or_404(Profile,user=user)
+    if request.method == 'POST':
+        user.first_name = request.POST.get('fname')
+        user.save()
+
+
+    context = {
+        'user_profile':user_profile
+    }
+    return render(request, 'user/profileupdate.html',context)

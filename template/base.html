@@ -235,7 +235,7 @@
           </a>
           <ul class="dropdown-menu text-small" >
             <li><a class="dropdown-item" href="{% url 'password_change' %}">Change Password</a></li>
-            <li><a class="dropdown-item" href="{% url 'profile_update' %}">Settings</a></li>
+            <li><a class="dropdown-item" href="{% url 'profile_update' request.user.username %}">Settings</a></li>
             <li><a class="dropdown-item" href="{% url 'profile' request.user.username %}">Profile</a></li>
             <li><hr class="dropdown-divider"></li>
             <!-- <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li> -->
