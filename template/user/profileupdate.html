@@ -5,8 +5,6 @@
     display: none;
 }
 </style>
-<form method="post">
-{% csrf_token %}
 <div class="container rounded bg-white mt-5 mb-5">
     <div class="row">
         <div class="col-md-3 border-right">
@@ -14,14 +12,17 @@
                 <img class="rounded-circle mt-5" width="150px" src="{{user_profile.profile_image.url}}">
                 <div>
                     <label for="img" class="btn btn-outline-primary">Update Profile</label>
-                    <input type="file" id="img" class="custom">
+                    <input type="file" name="profile_image" id="img" class="custom">
                 </div>
                 <div>
+                    <form method="post">          
+                    {% csrf_token %}
                     <br>
-                    <textarea name="bio" class="form-control" id="" placeholder="Bio"  rows="5"></textarea>
+                    <textarea name="bio" class="form-control" id="" placeholder="Bio" name="bio"  rows="5">{{user_profile.bio}}</textarea>
                 </div>    
             </div>
         </div>
+        
         <div class="col-md-5 border-right">
             <div class="p-3 py-5">
                 <div class="d-flex justify-content-between align-items-center mb-3">
@@ -30,27 +31,27 @@
                 <div class="row mt-2">
                     <div class="col-md-6">
                         <label class="labels">First Name</label>
-                        <input type="text" name="fname" class="form-control" placeholder="First name" value="{{user_profile.user.first_name}}">
+                        <input type="text" name="fname" class="form-control" value="{{user_profile.user.first_name}}" placeholder="First name">
                     </div>
                     <div class="col-md-6">
                         <label class="labels">Last Name</label>
-                        <input type="text" name="lname" class="form-control" value="" placeholder="Last Name"></div>
+                        <input type="text" name="lname" class="form-control" value="{{user_profile.user.last_name}}" placeholder="Last Name"></div>
                 </div>
                 <div class="row mt-3">
                     <div class="col-md-12">
                         <label class="labels">Mobile Number</label>
-                        <input type="tel" name="phone" class="form-control" placeholder="enter phone number" value="">
+                        <input type="tel" name="phone" class="form-control" placeholder="enter phone number" value="{{user_profile.mobile}}">
                     </div>
                    
                     <div class="col-md-12">
                         <label class="labels">Email ID</label>
-                        <input type="email" class="form-control" placeholder="enter email id" name="email">
+                        <input type="email" class="form-control" placeholder="enter email id" name="email" value="{{user_profile.user.email}}">
                     </div>
                 </div>
                 
                 <div class="col-md-12">
                     <label class="labels">Address </label>
-                    <textarea  class="form-control" rows="5" placeholder="Adress" name="location"></textarea>
+                    <textarea  class="form-control" rows="5" placeholder="Adress"  name="location">{{user_profile.location}}</textarea>
                 </div>
                 <div class="mt-5 text-center">
                     <button class="btn btn-primary profile-button" type="submit">Save Profile</button></div>
@@ -60,24 +61,24 @@
             <div class="p-3 py-5">
                 <div class="col-md-12">
                     <label class="labels">Website</label>
-                    <input type="text" class="form-control" name="website" placeholder="Website" value="">
+                    <input type="text" class="form-control" name="website" placeholder="Website" value="{{user_profile.website}}">
                 </div> <br>
                 <div class="col-md-12">
                     <label class="labels">Facebook</label>
-                    <input type="text" class="form-control" name="facebook" placeholder="Facebook" value="">
+                    <input type="text" class="form-control" name="facebook" placeholder="Facebook" value="{{user_profile.facebook}}">
                 </div><br>
             
             <div class="col-md-12">
                 <label class="labels">Instagram</label>
-                <input type="text" class="form-control" name="instagram" placeholder="Instagram" value="">
+                <input type="text" class="form-control" name="instagram" placeholder="Instagram" value="{{user_profile.instagram}}">
             </div><br>
             <div class="col-md-12">
                 <label class="labels">Linkedin</label>
-                <input type="text" class="form-control" name="Linkedin" placeholder="Linkedin" value="">
+                <input type="text" class="form-control" name="linkedin" placeholder="Linkedin" value="{{user_profile.linkedin}}">
             </div><br>
             <div class="col-md-12">
                 <label class="labels">Githu</label>
-                <input type="text" class="form-control" name="github" placeholder="Github" value="">
+                <input type="text" class="form-control" name="github" placeholder="Github" value="{{user_profile.github}}">
             </div><br>
         </div>
         </div>

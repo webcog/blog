@@ -46,7 +46,7 @@ class Profile(models.Model):
     linkedin = models.URLField(max_length=200,blank=True)
     github = models.URLField(max_length=200,blank=True)
     youtube = models.URLField(max_length=200,blank=True)
-    profile_image = models.ImageField(upload_to="profile/", blank=True,null=True,default="profile/default.png")
+    profile_image = models.ImageField(blank=True,null=True,default="profile/default.png")
 
     def __str__(self):
         return str(self.user)

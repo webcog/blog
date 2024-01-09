@@ -119,6 +119,17 @@ def profileupdate(request, username):
     user_profile=get_object_or_404(Profile,user=user)
     if request.method == 'POST':
         user.first_name = request.POST.get('fname')
+        user.last_name = request.POST.get('lname')
+        user_profile.mobile = request.POST.get('phone')
+        user.email = request.POST.get('email')
+        user_profile.location = request.POST.get('location')
+        user_profile.website = request.POST.get('website')
+        user_profile.facebook = request.POST.get('facebook')
+        user_profile.instagram = request.POST.get('instagram')
+        user_profile.linkedin = request.POST.get('linkedin')
+        user_profile.github = request.POST.get('github')
+        user_profile.bio = request.POST.get('bio')
+        user_profile.save()
         user.save()
 
 
