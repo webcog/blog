@@ -8,6 +8,8 @@ from django.contrib.auth.decorators import login_required
 # from django.contrib.auth.decorators import login_required
 # Create your views here.
 
+# def base(request)
+
 
 def index(request):
     category = Category.objects.all().order_by("-id")
@@ -114,10 +116,26 @@ def profile(request,username):
     return render(request, 'user/profile.html', context)
 
 
+
+
+# from .models import ParentCategory
+
+# def categories(request):
+#     categories = ParentCategory.objects.all()
+#     return {'categories': categories}
+
+
+
 def profileupdate(request, username):
     user = get_object_or_404(User, username=username)
     user_profile=get_object_or_404(Profile,user=user)
     if request.method == 'POST':
+        profile_image = request.FILES.get('profile_image')     
+        if profile_image:
+            user_profile.profile_image = profile_image
+            user_profile.save()
+            return redirect('profile', username=username)
+
         user.first_name = request.POST.get('fname')
         user.last_name = request.POST.get('lname')
         user_profile.mobile = request.POST.get('phone')
@@ -131,6 +149,7 @@ def profileupdate(request, username):
         user_profile.bio = request.POST.get('bio')
         user_profile.save()
         user.save()
+        return redirect('profile', username=username)
 
 
     context = {
