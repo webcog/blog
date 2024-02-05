@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, HttpResponse, redirect
-from core.models import Category, Post, Profile
+from core.models import Category, Post, Profile, Comment
 from django.contrib.auth.models import User
 from django.contrib.auth import login,authenticate, logout
 from django.contrib import messages
@@ -32,8 +32,10 @@ def category(request):
 # @login_required(login_url='login')
 def view_post(request, slug):
     post = get_object_or_404(Post, slug=slug)
+    comment = Comment.objects.all()
     context = {
-        "post":post
+        "post":post,
+        "comment":comment,
     }
     return render(request, "single.html",context)
 
