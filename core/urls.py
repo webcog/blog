@@ -11,4 +11,7 @@ urlpatterns = [
     path('profile/@<str:username>/', views.profile, name="profile"),
     # path("profile", views.profile, name='profile'),
     path("profile-update/@<str:username>/", views.profileupdate, name='profile_update'),
+
+    path("create-comment", views.create_comment, name="create_comment"),
+
 ]

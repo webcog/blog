@@ -28,11 +28,23 @@ def category(request):
         'category':category,
     }
     return render(request, 'category.html',context)
+@login_required(login_url="login")
+def create_comment(request):
+    if request.method == "POST":
+        post_id = request.POST.get('post_id')
+        content = request.POST.get('content')
+        if post_id and content:
+            post = get_object_or_404(Post, id=post_id)
+            user = request.user
+            comment = Comment.objects.create(post=post, user=user, content=content)
+    return redirect('post_view', slug=post.slug)
+
+
 
 # @login_required(login_url='login')
 def view_post(request, slug):
     post = get_object_or_404(Post, slug=slug)
-    comment = Comment.objects.all()
+    comment = Comment.objects.filter(post=post).order_by('-id')
     context = {
         "post":post,
         "comment":comment,
